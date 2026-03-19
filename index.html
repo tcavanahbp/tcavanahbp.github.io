@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f2;
+      --ink: #1a1a18;
+      --muted: #8a8880;
+      --rule: #e0ddd8;
+      --accent: #1a1a18;
+      --card-bg: #ffffff;
+      --hover-bg: #f0ede8;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      min-height: 100vh;
+      padding: 0 24px;
+    }
+
+    /* ── Header ── */
+    header {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 0 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .username {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .username em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── Controls ── */
+    .controls {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .count {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap input {
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 300;
+      padding: 7px 12px;
+      outline: none;
+      width: 180px;
+      transition: border-color 0.15s;
+    }
+
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-wrap input:focus { border-color: var(--ink); }
+
+    /* ── Grid ── */
+    .grid {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 0 80px;
+    }
+
+    /* ── Card ── */
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 12px;
+      transition: background 0.12s;
+      margin: 0 -12px;
+      padding: 22px 12px;
+      border-radius: 3px;
+    }
+
+    .card:first-child { border-top: 1px solid var(--rule); }
+
+    .card:hover { background: var(--hover-bg); }
+
+    .card-left { min-width: 0; }
+
+    .card-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-desc {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 500px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .lang-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .card-date {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .arrow {
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: transform 0.15s, color 0.12s;
+    }
+
+    .card:hover .arrow {
+      transform: translateX(3px);
+      color: var(--ink);
+    }
+
+    /* ── States ── */
+    .state {
+      max-width: 720px;
+      margin: 60px auto;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--rule);
+      border-top-color: var(--ink);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Footer ── */
+    footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 0 40px;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Animations ── */
+    .card {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: fadeUp 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="username" id="display-name">Loading<em>…</em></h1>
+    <p class="tagline" id="tagline">GitHub Projects</p>
+  </header>
+
+  <div class="controls">
+    <span class="count" id="count"></span>
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="filter…" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+
+  <main class="grid" id="grid">
+    <div class="state">
+      <div class="spinner"></div>
+      fetching repos
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <script>
+    // ─────────────────────────────────────────────
+    // CONFIG — change USERNAME to your GitHub handle
+    // ─────────────────────────────────────────────
+    const USERNAME = 'YOUR_GITHUB_USERNAME';
+    // Optional: override the display name shown in the header
+    const DISPLAY_NAME = '';
+    // Optional: tagline shown under your name
+    const TAGLINE = 'Projects & Experiments';
+    // Set to true to hide the special username.github.io repo
+    const HIDE_PAGES_REPO = true;
+    // ─────────────────────────────────────────────
+
+    const LANG_COLORS = {
+      JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26',
+      CSS: '#563d7c', Python: '#3572A5', Rust: '#dea584',
+      Go: '#00ADD8', Ruby: '#701516', Shell: '#89e051',
+      Vue: '#41b883', Svelte: '#ff3e00', Jupyter: '#DA5B0B',
+    };
+
+    let allRepos = [];
+
+    async function fetchAllRepos() {
+      let page = 1, repos = [];
+      while (true) {
+        const res = await fetch(
+          `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed&page=${page}`
+        );
+        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+        const data = await res.json();
+        repos = repos.concat(data);
+        if (data.length < 100) break;
+        page++;
+      }
+      return repos;
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+
+    function hasPages(repo) {
+      // Heuristic: repo has a Pages site if it has gh-pages branch or is named username.github.io
+      return repo.has_pages || repo.name === `${USERNAME}.github.io`;
+    }
+
+    function repoURL(repo) {
+      if (repo.homepage) return repo.homepage;
+      if (hasPages(repo)) return `https://${USERNAME}.github.io/${repo.name}`;
+      return repo.html_url;
+    }
+
+    function renderCard(repo, index) {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = repoURL(repo);
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.style.animationDelay = `${index * 40}ms`;
+
+      const color = LANG_COLORS[repo.language] || '#ccc';
+      const desc = repo.description || '';
+
+      a.innerHTML = `
+        <div class="card-left">
+          <div class="card-name">${repo.name}</div>
+          ${desc ? `<div class="card-desc">${desc}</div>` : ''}
+        </div>
+        <div class="card-meta">
+          <span class="arrow">→</span>
+          <div class="card-date">${formatDate(repo.pushed_at)}</div>
+          ${repo.language ? `<div class="lang-dot" style="background:${color};opacity:0.9;" title="${repo.language}"></div>` : ''}
+        </div>
+      `;
+      return a;
+    }
+
+    function render(repos) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      if (repos.length === 0) {
+        grid.innerHTML = '<div class="state">no matching repos</div>';
+        return;
+      }
+
+      repos.forEach((r, i) => grid.appendChild(renderCard(r, i)));
+    }
+
+    function applyFilter(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = q
+        ? allRepos.filter(r =>
+            r.name.toLowerCase().includes(q) ||
+            (r.description || '').toLowerCase().includes(q)
+          )
+        : allRepos;
+
+      document.getElementById('count').textContent =
+        filtered.length === allRepos.length
+          ? `${allRepos.length} repos`
+          : `${filtered.length} of ${allRepos.length}`;
+
+      render(filtered);
+    }
+
+    async function init() {
+      // Set header immediately
+      document.getElementById('tagline').textContent = TAGLINE;
+
+      try {
+        // Fetch user info for name
+        const userRes = await fetch(`https://api.github.com/users/${USERNAME}`);
+        const user = await userRes.json();
+        const name = DISPLAY_NAME || user.name || USERNAME;
+        const parts = name.trim().split(' ');
+        const first = parts.slice(0, -1).join(' ');
+        const last = parts[parts.length - 1];
+        document.getElementById('display-name').innerHTML =
+          first ? `${first} <em>${last}</em>` : `<em>${last}</em>`;
+
+        // Bio as tagline if no override
+        if (!TAGLINE && user.bio) {
+          document.getElementById('tagline').textContent = user.bio;
+        }
+
+        // Fetch repos
+        let repos = await fetchAllRepos();
+
+        // Filter out the username.github.io repo (this page)
+        if (HIDE_PAGES_REPO) {
+          repos = repos.filter(r => r.name !== `${USERNAME}.github.io`);
+        }
+
+        // Sort: repos with GitHub Pages first, then by push date
+        repos.sort((a, b) => {
+          const ap = hasPages(a) ? 1 : 0;
+          const bp = hasPages(b) ? 1 : 0;
+          if (ap !== bp) return bp - ap;
+          return new Date(b.pushed_at) - new Date(a.pushed_at);
+        });
+
+        allRepos = repos;
+
+        document.getElementById('count').textContent = `${repos.length} repos`;
+        document.getElementById('footer').textContent =
+          `updated via github api · ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+
+        render(repos);
+
+      } catch (err) {
+        document.getElementById('grid').innerHTML =
+          `<div class="state">couldn't load repos — check the username in config<br><br>${err.message}</div>`;
+      }
+    }
+
+    document.getElementById('search').addEventListener('input', e => {
+      applyFilter(e.target.value);
+    });
+
+    init();
+  </script>
+</body>
+</html>
