@@ -3,64 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Projects</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <title>Blueprint — Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f7f5f2;
-      --ink: #1a1a18;
-      --muted: #8a8880;
-      --rule: #e0ddd8;
-      --accent: #1a1a18;
-      --card-bg: #ffffff;
-      --hover-bg: #f0ede8;
+      --color-text:     #3F454A;
+      --color-accent:   #3979F9;
+      --color-chip-bg:  #CEDEFD;
+      --color-banner:   #B4C4E3;
+      --color-bg:       #FFFFFF;
+      --font-heading:   'Montserrat', 'Arial Black', sans-serif;
+      --font-body:      'Lato', 'Arial', sans-serif;
     }
 
     html { font-size: 16px; }
 
     body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'DM Mono', monospace;
-      font-weight: 300;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 400;
       min-height: 100vh;
       padding: 0 24px;
     }
 
-    /* ── Header ── */
-    header {
-      max-width: 720px;
+    /* ── App Header ── */
+    .app-header {
+      background: var(--color-bg);
+      border-bottom: 2px solid var(--color-banner);
+      padding: 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 72px 0 48px;
-      border-bottom: 1px solid var(--rule);
+      height: 60px;
     }
 
-    .username {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.4rem, 6vw, 3.8rem);
-      letter-spacing: -0.02em;
+    .bp-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* dot mark upper-right of "t" */
+    .bp-wordmark::after {
+      content: '·';
+      position: absolute;
+      top: -4px;
+      right: -6px;
+      font-size: 1rem;
+      color: var(--color-banner);
       line-height: 1;
-      margin-bottom: 16px;
     }
 
-    .username em {
-      font-style: italic;
-      color: var(--muted);
+    .header-chip {
+      background: var(--color-chip-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
     }
 
-    .tagline {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
+    /* ── Page Header ── */
+    header.page-header {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--color-banner);
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .page-title span {
+      color: var(--color-accent);
+    }
+
+    .page-tagline {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-text);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
     /* ── Controls ── */
     .controls {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 28px 0 0;
       display: flex;
@@ -70,131 +119,159 @@
     }
 
     .count {
-      font-size: 0.72rem;
-      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-text);
+      opacity: 0.5;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .search-wrap {
-      position: relative;
-    }
-
     .search-wrap input {
-      background: transparent;
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      color: var(--ink);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 300;
-      padding: 7px 12px;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-banner);
+      border-radius: 6px;
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      padding: 8px 14px;
       outline: none;
-      width: 180px;
+      width: 200px;
       transition: border-color 0.15s;
     }
 
-    .search-wrap input::placeholder { color: var(--muted); }
-    .search-wrap input:focus { border-color: var(--ink); }
+    .search-wrap input::placeholder { color: var(--color-text); opacity: 0.4; }
+    .search-wrap input:focus { border-color: var(--color-accent); }
 
     /* ── Grid ── */
     .grid {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 20px 0 80px;
     }
 
     /* ── Card ── */
     .card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--rule);
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: start;
-      gap: 12px;
-      transition: background 0.12s;
-      margin: 0 -12px;
-      padding: 22px 12px;
-      border-radius: 3px;
+      gap: 16px;
+      text-decoration: none;
+      color: inherit;
+      padding: 20px 16px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      margin-bottom: 6px;
+      transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+
+      /* animation */
+      opacity: 0;
+      transform: translateY(6px);
+      animation: fadeUp 0.3s forwards;
     }
 
-    .card:first-child { border-top: 1px solid var(--rule); }
+    .card:hover {
+      background: #F5F7FF;
+      border-color: var(--color-banner);
+      box-shadow: 0 2px 12px rgba(63, 69, 74, 0.08);
+    }
 
-    .card:hover { background: var(--hover-bg); }
+    /* Divider line between cards */
+    .card + .card {
+      border-top: 1px solid #EEF0F4;
+    }
 
     .card-left { min-width: 0; }
 
     .card-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
       letter-spacing: -0.01em;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .card-desc {
-      font-size: 0.76rem;
-      color: var(--muted);
-      line-height: 1.55;
-      max-width: 500px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-text);
+      opacity: 0.65;
+      line-height: 1.5;
+      max-width: 520px;
     }
 
     .card-meta {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 6px;
+      gap: 8px;
       flex-shrink: 0;
       padding-top: 2px;
     }
 
-    .lang-dot {
-      width: 8px;
-      height: 8px;
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--muted);
-      opacity: 0.5;
-      flex-shrink: 0;
+      background: var(--color-chip-bg);
+      color: var(--color-accent);
+      font-size: 0.9rem;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .card:hover .card-arrow {
+      background: var(--color-accent);
+      color: #fff;
+      transform: translateX(2px);
     }
 
     .card-date {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--color-text);
+      opacity: 0.45;
+      letter-spacing: 0.04em;
       white-space: nowrap;
     }
 
-    .arrow {
-      font-size: 0.9rem;
-      color: var(--muted);
-      transition: transform 0.15s, color 0.12s;
-    }
-
-    .card:hover .arrow {
-      transform: translateX(3px);
-      color: var(--ink);
+    .lang-chip {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--color-chip-bg);
+      color: var(--color-text);
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
     }
 
     /* ── States ── */
     .state {
-      max-width: 720px;
-      margin: 60px auto;
+      max-width: 760px;
+      margin: 80px auto;
       text-align: center;
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-text);
+      opacity: 0.5;
+      letter-spacing: 0.05em;
     }
 
     .spinner {
-      width: 20px;
-      height: 20px;
-      border: 1.5px solid var(--rule);
-      border-top-color: var(--ink);
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--color-banner);
+      border-top-color: var(--color-accent);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       margin: 0 auto 16px;
@@ -204,21 +281,32 @@
 
     /* ── Footer ── */
     footer {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 0 0 40px;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      padding: 20px 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-banner);
+    }
+
+    .footer-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--color-text);
+      opacity: 0.5;
+    }
+
+    .footer-meta {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--color-text);
+      opacity: 0.4;
+      letter-spacing: 0.05em;
     }
 
     /* ── Animations ── */
-    .card {
-      opacity: 0;
-      transform: translateY(6px);
-      animation: fadeUp 0.3s forwards;
-    }
-
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
@@ -226,46 +314,49 @@
 </head>
 <body>
 
-  <header>
-    <h1 class="username" id="display-name">Loading<em>…</em></h1>
-    <p class="tagline" id="tagline">GitHub Projects</p>
+  <!-- App Header -->
+  <div class="app-header">
+    <span class="bp-wordmark">blueprint</span>
+    <span class="header-chip">Projects</span>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1 class="page-title" id="display-name">Blueprint <span>Equity Stack</span></h1>
+    <p class="page-tagline" id="tagline">Projects &amp; Experiments</p>
   </header>
 
+  <!-- Controls -->
   <div class="controls">
     <span class="count" id="count"></span>
     <div class="search-wrap">
-      <input type="text" id="search" placeholder="filter…" autocomplete="off" spellcheck="false" />
+      <input type="text" id="search" placeholder="Filter repos…" autocomplete="off" spellcheck="false" />
     </div>
   </div>
 
+  <!-- Grid -->
   <main class="grid" id="grid">
     <div class="state">
       <div class="spinner"></div>
-      fetching repos
+      Fetching repos…
     </div>
   </main>
 
-  <footer id="footer"></footer>
+  <!-- Footer -->
+  <footer>
+    <span class="footer-wordmark">blueprint</span>
+    <span class="footer-meta" id="footer-meta"></span>
+  </footer>
 
   <script>
     // ─────────────────────────────────────────────
-    // CONFIG — change USERNAME to your GitHub handle
+    // CONFIG
     // ─────────────────────────────────────────────
-    const USERNAME = 'tcavanahbp';
-    // Optional: override the display name shown in the header
+    const USERNAME     = 'tcavanahbp';
     const DISPLAY_NAME = 'Blueprint Equity Stack';
-    // Optional: tagline shown under your name
-    const TAGLINE = 'Projects & Experiments';
-    // Set to true to hide the special username.github.io repo
+    const TAGLINE      = 'Projects & Experiments';
     const HIDE_PAGES_REPO = true;
     // ─────────────────────────────────────────────
-
-    const LANG_COLORS = {
-      JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26',
-      CSS: '#563d7c', Python: '#3572A5', Rust: '#dea584',
-      Go: '#00ADD8', Ruby: '#701516', Shell: '#89e051',
-      Vue: '#41b883', Svelte: '#ff3e00', Jupyter: '#DA5B0B',
-    };
 
     let allRepos = [];
 
@@ -285,12 +376,10 @@
     }
 
     function formatDate(iso) {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      return new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
     }
 
     function hasPages(repo) {
-      // Heuristic: repo has a Pages site if it has gh-pages branch or is named username.github.io
       return repo.has_pages || repo.name === `${USERNAME}.github.io`;
     }
 
@@ -308,8 +397,8 @@
       a.rel = 'noopener noreferrer';
       a.style.animationDelay = `${index * 40}ms`;
 
-      const color = LANG_COLORS[repo.language] || '#ccc';
       const desc = repo.description || '';
+      const lang = repo.language || '';
 
       a.innerHTML = `
         <div class="card-left">
@@ -317,9 +406,9 @@
           ${desc ? `<div class="card-desc">${desc}</div>` : ''}
         </div>
         <div class="card-meta">
-          <span class="arrow">→</span>
+          <div class="card-arrow">→</div>
           <div class="card-date">${formatDate(repo.pushed_at)}</div>
-          ${repo.language ? `<div class="lang-dot" style="background:${color};opacity:0.9;" title="${repo.language}"></div>` : ''}
+          ${lang ? `<div class="lang-chip">${lang}</div>` : ''}
         </div>
       `;
       return a;
@@ -330,7 +419,7 @@
       grid.innerHTML = '';
 
       if (repos.length === 0) {
-        grid.innerHTML = '<div class="state">no matching repos</div>';
+        grid.innerHTML = '<div class="state">No matching repos found.</div>';
         return;
       }
 
@@ -348,41 +437,36 @@
 
       document.getElementById('count').textContent =
         filtered.length === allRepos.length
-          ? `${allRepos.length} repos`
-          : `${filtered.length} of ${allRepos.length}`;
+          ? `${allRepos.length} Repos`
+          : `${filtered.length} of ${allRepos.length} Repos`;
 
       render(filtered);
     }
 
     async function init() {
-      // Set header immediately
       document.getElementById('tagline').textContent = TAGLINE;
 
       try {
-        // Fetch user info for name
         const userRes = await fetch(`https://api.github.com/users/${USERNAME}`);
         const user = await userRes.json();
-        const name = DISPLAY_NAME || user.name || USERNAME;
-        const parts = name.trim().split(' ');
-        const first = parts.slice(0, -1).join(' ');
-        const last = parts[parts.length - 1];
-        document.getElementById('display-name').innerHTML =
-          first ? `${first} <em>${last}</em>` : `<em>${last}</em>`;
 
-        // Bio as tagline if no override
+        const name = DISPLAY_NAME || user.name || USERNAME;
+        const words = name.trim().split(' ');
+        const last = words.pop();
+        const rest = words.join(' ');
+        document.getElementById('display-name').innerHTML =
+          rest ? `${rest} <span>${last}</span>` : `<span>${name}</span>`;
+
         if (!TAGLINE && user.bio) {
           document.getElementById('tagline').textContent = user.bio;
         }
 
-        // Fetch repos
         let repos = await fetchAllRepos();
 
-        // Filter out the username.github.io repo (this page)
         if (HIDE_PAGES_REPO) {
           repos = repos.filter(r => r.name !== `${USERNAME}.github.io`);
         }
 
-        // Sort: repos with GitHub Pages first, then by push date
         repos.sort((a, b) => {
           const ap = hasPages(a) ? 1 : 0;
           const bp = hasPages(b) ? 1 : 0;
@@ -392,15 +476,15 @@
 
         allRepos = repos;
 
-        document.getElementById('count').textContent = `${repos.length} repos`;
-        document.getElementById('footer').textContent =
-          `updated via github api · ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+        document.getElementById('count').textContent = `${repos.length} Repos`;
+        document.getElementById('footer-meta').textContent =
+          `Updated via GitHub API · ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
 
         render(repos);
 
       } catch (err) {
         document.getElementById('grid').innerHTML =
-          `<div class="state">couldn't load repos — check the username in config<br><br>${err.message}</div>`;
+          `<div class="state">Couldn't load repos — check the username in config.<br><br>${err.message}</div>`;
       }
     }
 
@@ -410,5 +494,6 @@
 
     init();
   </script>
+
 </body>
 </html>
